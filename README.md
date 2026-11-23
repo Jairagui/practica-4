@@ -118,3 +118,7 @@ npm run import:all-channels
 ```
 
 El importador individual lee metadatos de la playlist y actualiza por país más tvg-id o stream URL. La importación completa limpia Channels y Favorites antes de cargar todas las playlists de docs. La reproducción depende de que el stream remoto permita CORS y acceso directo desde navegador.
+
+## Despliegue
+
+URL pública: https://TU-URL.onrender.com
