@@ -1,0 +1,33 @@
+name: CI/CD TV Hub
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Bajar el codigo
+        uses: actions/checkout@v5
+
+      - name: Instalar Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Correr pruebas
+        run: npm test
+
+      - name: Compilar
+        run: npm run build
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Mandar deploy a Render
+        run: curl -f -X POST "${{ secrets.RENDER_DEPLOY_HOOK_URL }}&ref=${{ github.sha }}"
