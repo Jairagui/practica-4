@@ -51,30 +51,18 @@ export const getChannel: RequestHandler = async (request, response) => {
     throw new AppError(400, 'INVALID_CHANNEL_ID', 'Channel id is invalid');
   }
 
-  // TODO 2:
-  // Completa el método de Mongoose que permite recuperar un solo canal activo.
-  // Objetivo: consultar el Channel Model utilizando el identificador recibido.
-  // Resultado esperado: channel debe contener el documento solicitado cuando exista.
-  const channel = await Channel.________({
+  const channel = await Channel.findOne({
     _id: channelId,
     isActive: true
   });
 
-  // TODO 3:
-  // Completa el código HTTP cuando el canal solicitado no existe.
-  // Objetivo: comunicar correctamente que el recurso no fue encontrado.
-  // Resultado esperado: la API debe responder con el estado HTTP apropiado.
   if (!channel) {
     throw new AppError(
-      ___,
-      'CHANNEL_NOT_FOUND',
-      'Channel was not found'
+        404,
+        'CHANNEL_NOT_FOUND',
+        'Channel was not found'
     );
   }
 
-  // TODO 4:
-  // Completa el método de Response que envía el Channel al frontend.
-  // Objetivo: regresar la información del canal en formato JSON.
-  // Resultado esperado: el cliente debe recibir un objeto con la propiedad channel.
-  response.____({ channel });
+  response.json({ channel });
 };
